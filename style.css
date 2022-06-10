@@ -1,0 +1,332 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    font-size: 1.5rem;
+}
+
+body {
+    background-image: linear-gradient(45deg, rgb(42, 180, 42), rgb(49, 49, 224));
+    min-height: 100vh;
+    /* min-height: 200vh; */
+    color: white;
+    font-family: 'PT Sans', sans-serif;
+}
+
+header,
+form {
+    min-height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form input,
+form button {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    border: none;
+    background: white;
+}
+
+form button {
+    color: rgb(51, 207, 51);
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+form button:hover {
+    background: rgb(51, 207, 51);
+    color: white;
+}
+
+.todo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-list {
+    min-width: 30%;
+    list-style: none;
+}
+
+.todo {
+    background: white;
+    margin: 0.5rem;
+    color: black;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.5s ease;
+    /*switching .completed*/
+}
+
+.todo li {
+    flex: 1;
+    /*pushing both buttons to the right side*/
+}
+
+.trash-btn,
+.complete-btn,
+.options-btn {
+    background: rgb(51, 207, 51);
+    color: white;
+    font-size: 1rem;
+    padding: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.complete-btn:hover {
+    background: rgb(45, 181, 45);
+}
+
+.trash-btn {
+    background: rgb(235, 50, 50);
+}
+
+.trash-btn:hover {
+    background: rgb(211, 45, 45);
+}
+
+.options-btn {
+    background: rgb(137, 137, 137);
+    padding: 1rem 0.8rem;
+}
+
+.options-btn:hover {
+    background: rgb(121, 121, 121);
+}
+
+.todo-item {
+    padding: 0rem 0.5rem;
+}
+
+.fa-trash,
+.fa-check,
+.fa-ellipsis-vertical {
+    pointer-events: none;
+    /*we can click on whole button*/
+}
+
+.completed {
+    /*added by classList.toggle()*/
+    text-decoration: line-through;
+    opacity: 0.5;
+}
+
+.fall {
+    transform: translateY(8rem) rotateZ(20deg);
+    opacity: 0;
+}
+
+select {
+    /*select itself*/
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    border: none;
+}
+
+.select {
+    /*div around select*/
+    margin: 1rem;
+    overflow: hidden;
+    position: relative;
+}
+
+select {
+    color: rgb(34, 134, 34);
+    width: 10rem;
+    cursor: pointer;
+    padding: 0.9rem;
+}
+
+.select::after {
+    content: '\25BC';
+    position: absolute;
+    background: white;
+    color: rgb(51, 207, 51);
+    top: -0.2rem;
+    right: 0;
+    padding: 1rem;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.select:hover::after {
+    background: rgb(51, 207, 51);
+    color: white;
+}
+
+.popup-div {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    position: absolute;
+    background: linear-gradient(150deg, rgb(237, 236, 236), rgb(220, 220, 220));
+    border-radius: 10px;
+    min-width: 25%;
+    min-height: 50%;
+    pointer-events: none;
+    opacity: 0;
+    left: 65%;
+    transition: 200ms ease-out;
+}
+
+.popup-div.popup-active {
+    opacity: 1;
+    left: 70%;
+    pointer-events: all;
+}
+
+.popup-header-div {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2rem 0.5rem;
+}
+
+.popup-header-div p {
+    font-size: 1em;
+    font-weight: 100;
+    padding-top: .3rem;
+    text-decoration-line: underline;
+    text-decoration-thickness: 2px;
+
+}
+
+.popup-header-div button {
+    transform: translateX(-30%);
+    transform: translateY(-22%);
+    font-size: 0.70em;
+    border: none;
+    pointer-events: none;
+    background: none;
+}
+
+.popup-header-div button i {
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.popup-note-div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0.2rem 0.5rem;
+}
+
+.note-title-div {
+    display: flex;
+}
+
+.note-title-div button {
+    transform: scale(.7);
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    background-color: grey;
+    padding: 0 .5rem;
+    color: white;
+    border-radius: 5px;
+    transition: all .18s ease, transform .07s ease;
+}
+
+.note-title-div button:hover {
+    background-color: rgb(154, 154, 154);
+    color: black;
+}
+
+.note-title-div button:active {
+    transform: scale(.65);
+}
+
+.saved-icon {
+    transform: scale(0);
+    color: rgb(51, 207, 51);
+
+}
+
+.saved-icon.active {
+    animation: savedIconAppear .8s forwards, savedIconDisappear 2.5s ease 3s forwards;
+}
+
+@keyframes savedIconAppear {
+    50% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(.7);
+    }
+
+}
+
+@keyframes savedIconDisappear {
+    100% {
+        transform: scale(0) rotate(359deg);
+    }
+}
+
+.popup-note-div p {
+    font-size: 0.65em;
+    color: grey;
+    padding-top: .3rem;
+    padding-bottom: .3rem;
+}
+
+.popup-note-input {
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    outline-color: rgb(180, 180, 180);
+    height: 280px;
+    resize: none;
+    margin-top: .2rem;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1rem;
+}
+
+.popup-note-input::placeholder {
+    color: grey;
+}
+
+@media (max-width: 850px) {
+    form {
+        flex-wrap: wrap;
+    }
+
+    .todo {
+        position: relative;
+    }
+
+    .popup-div {
+        min-width: 100%;
+        min-height: 290px;
+        left: 0%;
+        top: 90%;
+        position: absolute;
+    }
+
+    .popup-div.popup-active {
+        left: 0%;
+        top: 105%;
+    }
+
+    .popup-note-input {
+        height: 200px;
+    }
+
+    .completed {
+        z-index: 10;
+    }
+}
